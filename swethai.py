@@ -1,26 +1,72 @@
 # importers
 import time
-
 import speech_recognition as srec
 import pyttsx3
 import pywhatkit
-
-# Listener
-listener = srec.Recognizer()
-engine = pyttsx3.init()
+import datetime
 
 # SETTINGS
+
+# Bot Profile
+BOT = "Nazeer"
+# Alias [ Optional ]
+# TODO: Alias BUG
+BOTS = ["dei",
+        "day",
+        "naseer",
+        "nazeer",
+        "nazer",
+        "nazir",
+        "nasir"]
+
+# Audio Engine
+engine = pyttsx3.init()
+
 # Default SwethAI Voice
 engine.setProperty('voice', engine.getProperty('voices')[0].id)
 
 # Default SwethAI Speed
-engine.setProperty('rate', engine.getProperty('rate') - 60)
+engine.setProperty('rate', engine.getProperty('rate') - 50)
+
+# [x] TODO : Summon Flags
+summon = False
+
+
+def someone_true():
+    global summon
+    summon = True
+    print("I am someone")
+
+
+# Server Listener
+def server():
+    try:
+        print(f'{BOT} is all ears ...')
+        listener = srec.Recognizer()
+        listener.pause_threshold = 1
+        with srec.Microphone() as me:
+            voice = listener.listen(me)
+            cmd = listener.recognize_google(voice)
+            listener.adjust_for_ambient_noise(me)
+            cmd = cmd.lower()
+            cmd = cmd.replace(BOT, '')
+            print(cmd)
+            for x in BOTS:
+                if x in cmd:
+                    someone_true()
+                    break
+    except Exception as e:
+        if ValueError:
+            print(e)
+            echo("Chetha Payaley")
+            engine.runAndWait()
+    return cmd
 
 
 # Voice Changer
 # You can't change your Girlfriend's attitude at least change her gender
 def voice_changer(n):
-    print("""To Change The Vocal Cord of SwethAI
+    print(f"""To Change The Vocal Cord of SwethAI
     [ 0 - Male      ] 
     [ 1 - Female    ]
     """)
@@ -36,54 +82,41 @@ def speed_changer(n):
     [ decrease by x :  -50 ]
     """)
     n = int(input("Control : "))
-    engine.setProperty('rate', engine.getProperty('rate') - n)
+    engine.setProperty('rate', int(engine.getProperty('rate')) - n)
 
 
 # Hola SwethAI
 def welcome():
-    engine.say('Commander , Blesslin Jerish')
+    engine.say('Bonjour , Blesslin Jerish')
     time.sleep(1)
-    engine.say('Kavya , on your marks')
-    # Summoning Kavya
+    engine.say(f'{BOT} , on your marks')
+    # Summoning FBOT
     engine.setProperty('voice', engine.getProperty('voices')[1].id)
-    engine.say('Aye lieutenant  ; Roger ')
+    engine.say('Aye lieutenant  , Roger ')
     engine.runAndWait()
 
 
 # SwethAI Echo
 def echo(text):
-    engine.say(text)
-    engine.runAndWait()
     # test ^ 1
     print(text)
+    engine.say(text)
+    engine.runAndWait()
+
 
 # Executor Skeleton
-def executor():
-    cmd = order()
+def torder():
+    """
+    Just a skeleton for Logical Orders
+    :return: command script
+    """
     # print(cmd)
-    if 'command' in cmd:
-        song = cmd.replace('command', 'commanding')
+    coms = "#Logic"
+    if 'command' in coms:
+        song = coms.replace('command', 'commanding')
         echo(song)
         pywhatkit.playonyt(song.replace('commanding', ''))
-    return cmd
-
-
-# By The Order of Kavya
-def order():
-    with srec.Microphone() as me:
-        print('Kavya is all ears ...')
-        voice = listener.listen(me)
-        cmd = listener.recognize_google(voice)
-        cmd = cmd.lower()
-        if 'kavya' and 'play' in cmd:
-            cmd = cmd.replace('kavya', '')
-            youtuber(cmd)
-            engine.runAndWait()
-            # Logical orders
-        else:
-            echo("Poda Panni")
-            engine.runAndWait()
-    return cmd
+    return coms
 
 
 # To play songs on YouTube
@@ -96,10 +129,27 @@ def youtuber(cmd):
     engine.runAndWait()
 
 
-# Fire @ KavyAi
-welcome()
+# To Tell the Clock
+def timez():
+    t = datetime.datetime.now().strftime("%H:%M")
+    echo(f"The Time is {t} ")
+
+
+# By The Order of FBOT
+def orders():
+    cmd = server()
+    if summon:
+        if 'play' in cmd:
+            youtuber(cmd)
+        elif 'time' in cmd:
+            timez()
+    else:
+        echo("There is someone in here with us")
+    # Logic has Left The chat
+
+
+# Firing the FBOT
+# welcome()
 origin = True
 while origin:
-    order()
-
-# executor()
+    orders()
