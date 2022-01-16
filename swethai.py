@@ -14,7 +14,7 @@ engine = pyttsx3.init()
 engine.setProperty('voice', engine.getProperty('voices')[0].id)
 
 # Default SwethAI Speed
-engine.setProperty('rate', engine.getProperty('rate') - 50)
+engine.setProperty('rate', engine.getProperty('rate') - 60)
 
 
 # Voice Changer
@@ -41,47 +41,65 @@ def speed_changer(n):
 
 # Hola SwethAI
 def welcome():
-    engine.say('Bonjour , Blesslin ')
-    time.sleep(1.2)
-    engine.say(' Kavya :  Roger ')
+    engine.say('Commander , Blesslin Jerish')
+    time.sleep(1)
+    engine.say('Kavya , on your marks')
+    # Summoning Kavya
+    engine.setProperty('voice', engine.getProperty('voices')[1].id)
+    engine.say('Aye lieutenant  ; Roger ')
     engine.runAndWait()
+
 
 # SwethAI Echo
 def echo(text):
     engine.say(text)
     engine.runAndWait()
+    # test ^ 1
+    print(text)
 
-
-def order():
-    try:
-        with srec.Microphone() as me:
-            print('Kavya is all ears ...')
-            voice = listener.listen(me)
-            cmd = listener.recognize_google(voice)
-            cmd = cmd.lower()
-            if 'kavya' in cmd:
-                cmd = cmd.replace('kavya', '')
-                # echo(cmd)
-                pass
-    except:
-        pass
-    return cmd
-
-
+# Executor Skeleton
 def executor():
     cmd = order()
     # print(cmd)
-    if 'play' in cmd:
-        song = cmd.replace('play', 'playing')
+    if 'command' in cmd:
+        song = cmd.replace('command', 'commanding')
         echo(song)
-        pywhatkit.playonyt(song.replace('playing', ''))
+        pywhatkit.playonyt(song.replace('commanding', ''))
+    return cmd
 
 
-# KavyAi
+# By The Order of Kavya
+def order():
+    with srec.Microphone() as me:
+        print('Kavya is all ears ...')
+        voice = listener.listen(me)
+        cmd = listener.recognize_google(voice)
+        cmd = cmd.lower()
+        if 'kavya' and 'play' in cmd:
+            cmd = cmd.replace('kavya', '')
+            youtuber(cmd)
+            engine.runAndWait()
+            # Logical orders
+        else:
+            echo("Poda Panni")
+            engine.runAndWait()
+    return cmd
+
+
+# To play songs on YouTube
+def youtuber(cmd):
+    # cmd = order()
+    songer = cmd.replace('play', 'playing')
+    echo(songer)
+    song = songer.replace('playing', '')
+    pywhatkit.playonyt(song)
+    engine.runAndWait()
+
+
+# Fire @ KavyAi
 welcome()
+origin = True
+while origin:
+    order()
 
 # executor()
-
-#  TEST
-# engine.say('The quick brown fox jumped over the lazy dog.')
-# engine.runAndWait()

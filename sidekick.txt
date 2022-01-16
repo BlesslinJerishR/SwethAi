@@ -11,5 +11,6 @@ SwethAI - Sweet Heart Artificial Intelligence
 - added time displayer
 - added wikipedia waker
 - added Google Grabber
+> switched david to kavya
 
 [ Developer : Blesslin Jerish R ]
