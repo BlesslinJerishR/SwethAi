@@ -1,0 +1,12 @@
+SwethAI - Sweet Heart Artificial Intelligence
+
+[ v1.0 ]
+
+- added importers
+- added Listener
+- added Female Voice Switcher
+- added Voice Engines
+- optimized functions
+- added SwethAI Echo
+
+[ Developer : Blesslin Jerish R ]
