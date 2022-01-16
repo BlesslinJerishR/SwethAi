@@ -1,4 +1,6 @@
 # importers
+import time
+
 import speech_recognition as srec
 import pyttsx3
 import pywhatkit
@@ -40,9 +42,9 @@ def speed_changer(n):
 # Hola SwethAI
 def welcome():
     engine.say('Bonjour , Blesslin ')
+    time.sleep(1.2)
     engine.say(' Kavya :  Roger ')
     engine.runAndWait()
-
 
 # SwethAI Echo
 def echo(text):
