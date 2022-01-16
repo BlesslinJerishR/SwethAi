@@ -1,9 +1,11 @@
 # importers
 import time
 import speech_recognition as srec
+# TODO: TTX
 import pyttsx3
 import pywhatkit
 import datetime
+
 
 # SETTINGS
 
@@ -28,7 +30,7 @@ engine.setProperty('voice', engine.getProperty('voices')[0].id)
 # Default SwethAI Speed
 engine.setProperty('rate', engine.getProperty('rate') - 50)
 
-# [x] TODO : Summon Flags
+# [x] TODO : Summon Flags x1
 summon = False
 
 
@@ -40,29 +42,32 @@ def someone_true():
 
 # Server Listener
 def server():
-    try:
-        print(f'{BOT} is all ears ...')
-        listener = srec.Recognizer()
-        listener.pause_threshold = 1
-        with srec.Microphone() as me:
-            voice = listener.listen(me)
-            cmd = listener.recognize_google(voice)
-            listener.adjust_for_ambient_noise(me)
-            cmd = cmd.lower()
-            cmd = cmd.replace(BOT, '')
-            print(cmd)
-            for x in BOTS:
-                if x in cmd:
-                    someone_true()
-                    break
-    except Exception as e:
-        if ValueError:
-            print(e)
-            echo("Chetha Payaley")
-            engine.runAndWait()
-    return cmd
+    # TODO: Server Bug
+    print(f'{BOT} is all ears ...')
+    listener = srec.Recognizer()
+    with srec.Microphone() as me:
+        print("Two seconds silence for Alexa")
+        listener.adjust_for_ambient_noise(me, duration=2)
+        print("Calibrated, now open your mouth !")
+        voice = listener.listen(me)
+        # try:
+        print(f"Dood 1 : {listener.recognize_sphinx(voice)}")
+        cmd = listener.recognize_google(voice)
+        cmd = cmd.lower()
+        cmd = cmd.replace(BOT, '')
+        print(cmd)
+        for x in BOTS:
+            if x in cmd:
+                someone_true()
+                break
+        return cmd
+        except Exception as e:
+            if ValueError:
+                print(e)
+                echo("Chetha Payaley")
+                engine.runAndWait()
 
-
+server()
 # Voice Changer
 # You can't change your Girlfriend's attitude at least change her gender
 def voice_changer(n):
@@ -149,7 +154,7 @@ def orders():
 
 
 # Firing the FBOT
-# welcome()
+welcome()
 origin = True
 while origin:
     orders()

@@ -13,4 +13,12 @@ SwethAI - Sweet Heart Artificial Intelligence
 - added Google Grabber
 > switched david to kavya
 
+requirements.txt
+- PyAudio
+- Flask
+- PocketSphinx
+- SpeechRecognition
+- pyttsx3
+- pywhatkit
+
 [ Developer : Blesslin Jerish R ]
