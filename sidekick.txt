@@ -2,11 +2,14 @@ SwethAI - Sweet Heart Artificial Intelligence
 
 [ v1.0 ]
 
+/ optimized functions
 - added importers
 - added Listener
 - added Female Voice Switcher
 - added Voice Engines
-- optimized functions
 - added SwethAI Echo
+- added time displayer
+- added wikipedia waker
+- added Google Grabber
 
 [ Developer : Blesslin Jerish R ]
