@@ -6,20 +6,20 @@ import pyttsx3
 import pywhatkit
 import datetime
 
-
 # SETTINGS
 
 # Bot Profile
-BOT = "Nazeer"
+BOT = "kavita"
 # Alias [ Optional ]
-# TODO: Alias BUG
-BOTS = ["dei",
-        "day",
-        "naseer",
-        "nazeer",
-        "nazer",
-        "nazir",
-        "nasir"]
+
+# Alias Bot names
+# BOTS = ["BotName",
+#         "BotName",
+#         "BotName",
+#         "BotName",
+#         "BotName",
+#         "BotName",
+#         "BotName"]
 
 # Audio Engine
 engine = pyttsx3.init()
@@ -42,32 +42,23 @@ def someone_true():
 
 # Server Listener
 def server():
-    # TODO: Server Bug
     print(f'{BOT} is all ears ...')
     listener = srec.Recognizer()
     with srec.Microphone() as me:
         print("Two seconds silence for Alexa")
-        listener.adjust_for_ambient_noise(me, duration=2)
+        listener.adjust_for_ambient_noise(me, duration=1)
         print("Calibrated, now open your mouth !")
         voice = listener.listen(me)
-        # try:
-        print(f"Dood 1 : {listener.recognize_sphinx(voice)}")
-        cmd = listener.recognize_google(voice)
-        cmd = cmd.lower()
-        cmd = cmd.replace(BOT, '')
-        print(cmd)
-        for x in BOTS:
-            if x in cmd:
-                someone_true()
-                break
-        return cmd
-        except Exception as e:
-            if ValueError:
-                print(e)
-                echo("Chetha Payaley")
-                engine.runAndWait()
+        try:
+            cmd = listener.recognize_google(voice)
+            cmd = cmd.lower()
+            cmd = cmd.replace(BOT, '')
+            print(cmd)
+            return cmd
+        except:
+            pass
 
-server()
+
 # Voice Changer
 # You can't change your Girlfriend's attitude at least change her gender
 def voice_changer(n):
@@ -138,18 +129,26 @@ def youtuber(cmd):
 def timez():
     t = datetime.datetime.now().strftime("%H:%M")
     echo(f"The Time is {t} ")
+    engine.runAndWait()
 
 
 # By The Order of FBOT
 def orders():
     cmd = server()
-    if summon:
+    print(cmd)
+    print("There is someone in here with us")
+    try:
         if 'play' in cmd:
             youtuber(cmd)
         elif 'time' in cmd:
             timez()
-    else:
-        echo("There is someone in here with us")
+        else:
+            pass
+    except:
+        pass
+
+    # else:
+    #     echo("There is someone in here with us")
     # Logic has Left The chat
 
 
